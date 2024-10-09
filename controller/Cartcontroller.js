@@ -1,6 +1,6 @@
 import Cart from "../model/cartschema.js";
 import Products from "../model/productshema.js";
-import Users from "../model/usermodel.js";
+import Users from "../model/usershema.js";
 
 export const addtocart = async (req, res) => {
   //find user
@@ -15,13 +15,13 @@ export const addtocart = async (req, res) => {
     console.log(user);
 
     if (!user) {
-      res.status(404).json({ message: " user not found" });
+      return res.status(404).json({ message: " user not found" });
     }
     const product = await Products.findById(productid);
     //findid
     console.log(product);
     if (!product) {
-      res.status(404).json({ message: " product not found" });
+     return res.status(404).json({ message: " product not found" });
     }
 
     //check item alredy exist in cart
@@ -50,7 +50,7 @@ export const addtocart = async (req, res) => {
       res.status(200).json({ message: "item add to cart successfull" });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -62,14 +62,14 @@ export const viewusercart = async (req, res) => {
       populate: { path: "productid" },
     });
     if (!user) {
-      res.status(404).json({ message: "user not found" });
+      return res.status(404).json({ message: "user not found" });
     }
     if (!user.cart || user.cart.length == 0) {
-      res.status(404).json({ message: "user cart is empty", data: [] });
+      return res.status(404).json({ message: "user cart is empty", data: [] });
     }
     res.status(200).json({ message: "cart viewdddd", data: user.cart });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -79,11 +79,11 @@ export const incrcart = async (req, res) => {
 
     const user = await Users.findById(userid);
     if (!user) {
-      res.status(404).json({ message: "item not found" });
+      return  res.status(404).json({ message: "item not found" });
     }
     const product = await Products.findById(productid);
     if (!product) {
-      res.status(404).json("product not found");
+      return  res.status(404).json("product not found");
     }
 
     console.log(userid, "deff");
@@ -96,16 +96,16 @@ export const incrcart = async (req, res) => {
       });
       console.log(cartitem, "ibfrbf");
       if (!cartitem) {
-        res.status(404).json({ message: "cartitem not found" });
+        return res.status(404).json({ message: "cartitem not found" });
       }
       cartitem.quantity++;
       await cartitem.save();
       res.status(200).json({ message: "quantity increasesss" });
     } catch (error) {
-      res.status(500).json(error.message);
+      return  res.status(500).json(error.message);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return  res.status(500).json(error.message);
   }
 };
 
@@ -115,12 +115,12 @@ export const decrcart = async (req, res) => {
 //find user
     const user = await Users.findById(userid);
     if (!user) {
-      res.status(404).json({ message: "item not found" });
+      return res.status(404).json({ message: "item not found" });
     }
     //find product
     const product = await Products.findById(productid);
     if (!product) {
-      res.status(404).json({ message: "product noot found" });
+      return res.status(404).json({ message: "product noot found" });
     }
    
     try {
@@ -131,19 +131,23 @@ export const decrcart = async (req, res) => {
       });
 
       if (!cartitem) {
-        res.status(404).json({ message: "caritem not found" });
+        return res.status(404).json({ message: "caritem not found" });
       }
 
       cartitem.quantity--;
       await cartitem.save();
       res.status(200).json({ message: "quantity decreasesss" });
     } catch (error) {
-      res.status(500).json(error.message);
+      return res.status(500).json(error.message);
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
+
+
+//delete cartt
+
 
 export const deletecart=async(req,res)=>{
   const {userid,productid}=req.params
@@ -152,21 +156,31 @@ export const deletecart=async(req,res)=>{
     const user=await Users.findById(userid)
 
     if(!user){
-      res.status(404).json({message:"user not found"})
+      return res.status(404).json({message:"user not found"})
     }
-    const product=Products.findById(productid)
+    const product= await Products.findById(productid)
     if(!product){
-      res.status(404).json({message:'product not found'})
+      return res.status(404).json({message:'product not found'})
 
     }
 
     const deletecartitem= await Cart.findOneAndDelete({userid:user._id,productid:product._id})
     if(!deletecartitem){
-      res.status(404).json({message:"cartitem not found"})
+      return res.status(404).json({message:"cartitem not found"})
     }
+
+    const cartindex= await user.cart.findIndex(item=>item.equals (deletecartitem._id))
+    if(cartindex!==-1){
+      user.cart.splice(cartindex,1)
+      await user.save()
+       res.status(200).json({message:'item deleted success'})
+
+    }
+    return res.status(404).json({message:"item not deleted error occurs"})
 
     
   } catch (error) {
+    return res.status(500).json(error.message)
     
   }
 

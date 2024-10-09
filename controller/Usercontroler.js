@@ -1,4 +1,4 @@
-import Users from "../model/usermodel.js";
+import Users from "../model/usershema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -15,7 +15,7 @@ export const register = async (req, res) => {
     await user.save();
     res.status(200).json({ message: "register successfull", user: user });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -24,11 +24,11 @@ export const login = async (req, res) => {
   try {
     const user = await Users.findOne({ email });
     if (!user) {
-      res.status(404).json({ mesaage: "user not found" });
+      return res.status(404).json({ mesaage: "user not found" });
     }
     const passmatch = await bcrypt.compare(password, user.password);
     if (!passmatch) {
-      res.status(404).json({ message: "password not match" });
+      return res.status(404).json({ message: "password not match" });
     }
     const payload = {
       id: req._id,
@@ -39,7 +39,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({ mesaage: "login successfull", token });
   } catch (error) {
-    res.status(500).json(error.mesaage);
+    return res.status(500).json(error.mesaage);
   }
 };
 
@@ -47,11 +47,11 @@ export const getuser = async (req, res) => {
   try {
     const user = await Users.find();
     if(!user){
-        res.status(404).json({message:"user not found  "})
+      return  res.status(404).json({message:"user not found  "})
     }
     res.status(200).json({ mesaage: "users founded", user: user });
   } catch (error) {
-    res.status(500).json(error.mesaage);
+    return  res.status(500).json(error.mesaage);
   }
 };
 
@@ -61,7 +61,7 @@ export const getuserbyid = async (req, res) => {
     const user = await Users.findById(id);
     res.status(200).json({ mesaage: "users founded with id", user: user });
   } catch (error) {
-    res.status(500).json(error.mesaage);
+    return  res.status(500).json(error.mesaage);
   }
 };
 
@@ -70,11 +70,11 @@ export const putuser = async (req, res) => {
   try {
     const upuser = await Users.findByIdAndUpdate(id, req.body, { new: true });
     if (!upuser) {
-      res.status(404).json({ mesaage: "users not founded" });
+      return res.status(404).json({ mesaage: "users not founded" });
     }
     res.status(200).json({ mesaage: "users founded", upuser });
   } catch (error) {
-    res.status(500).json(error.mesaage);
+    return  res.status(500).json(error.mesaage);
   }
 };
 
@@ -84,18 +84,18 @@ export const deleteuser = async (req, res) => {
     const user = await Users.findByIdAndDelete(id);
     res.status(200).json({ mesaage: "users userdeleted success", user: user });
   } catch (error) {
-    res.status(500).json(error.mesaage);
+    return  res.status(500).json(error.mesaage);
   }
 };
 
 export const verifytoken=(req,res,next)=>{
     const token=req.headers['authorization']
     if(!token){
-        res.status(403).json({mesaage:"token is requird"})
+      return res.status(403).json({mesaage:"token is requird"})
     }
     jwt.verify(token,secretkey,(err,decoded)=>{
         if(err){
-            res.status(401).json({mesaage:"unotharaised token"})
+          return    res.status(401).json({mesaage:"unotharaised token"})
         }
         req.user=decoded
 
