@@ -1,8 +1,9 @@
 import express from "express"
 import { createprdt, deleteproduct, getproduct, getproductbycatogery, getproductbyid, putproduct } from "../controller/ProductControler.js"
-import { verifytoken } from "../controller/Usercontroler.js"
+// import { verifytoken } from "../controller/Usercontroler.js"
 import { addtocart, decrcart, deletecart, incrcart, viewusercart } from "../controller/Cartcontroller.js"
 import { addtowishlist, deletetewishlist, wishlistview } from "../controller/wishlistcontroler.js"
+import { verifytoken } from "../Middlewares/usermidleware.js"
 
 
 
