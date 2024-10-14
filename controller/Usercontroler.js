@@ -4,11 +4,18 @@ import jwt from "jsonwebtoken";
 
 const secretkey = "hhh";
 export const register = async (req, res) => {
-  const hashpass = await bcrypt.hash(req.body.password, 10);
+  const {password}=req.body
+  if (!password) {
+    return res.status(404).json({ message: "Password is required" });
+}
+
+  const hashpass = await bcrypt.hash(password, 10);
+console.log(hashpass);
 
   const user = new Users({
     email: req.body.email,
     password: hashpass,
+    image:  req.cloudinaryImageUrl,
     confirmpass: hashpass,
   });
   try {
@@ -21,6 +28,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email);
+  console.log(password);
+  
   try {
     const user = await Users.findOne({ email });
     if (!user) {

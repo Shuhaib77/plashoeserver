@@ -5,9 +5,9 @@ import multer from "multer"
 //configcloudinary
 
 cloudinary.v2.config({
-    cloud_name:"dmildebio",
-    api_key:"724543152577417",
-    api_secret:"1pA8BBMlzWfE3xTJj0iMkM_Ua3g"
+    cloud_name:process.env.cloud_name,
+    api_key:process.env.cloud_api,
+    api_secret:process.env.cloud_secret,
 
 
 })
@@ -35,7 +35,7 @@ const uplodimage=(req,res,next)=>{
                 const result= await cloudinary.v2.uploader.upload(req.file.path)
                 req.cloudinaryImageUrl=result.secure_url
 
-                console.log(req.cloudinaryImageUrl);
+                console.log(req.cloudinaryImageUrl,"kjwgcwjkc");
                 
                 
             } catch (error) {
