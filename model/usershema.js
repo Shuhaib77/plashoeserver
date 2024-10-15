@@ -19,10 +19,18 @@ const userschema = mongoose.Schema([
       require:true
 
     },
-    admin: {
-      type: Boolean,
-      require: true,
+    role:{
+      type:String,
+      enum:["user",'admin'],
+      default:"user"
+
+
+
     },
+    // admin: {
+    //   type: Boolean,
+    //   require: true,
+    // },
     cart: [
       {
         type: mongoose.Schema.Types.ObjectId,

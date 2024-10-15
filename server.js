@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 // import route from "./route/userroute.js";
 import proute from "./route/productroute.js";
 import uroute from "./route/userroute.js";
+import aroute from "./route/adminrote.js";
 
 
 
@@ -18,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/')
 
 app.use("/api",uroute)
 app.use("/api",proute)
+app.use("/api",aroute)
 
 
 app.listen(port,()=>{

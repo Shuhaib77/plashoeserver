@@ -53,68 +53,57 @@ export const login = async (req, res) => {
   }
 };
 
-export const getuser = async (req, res) => {
-  try {
-    const user = await Users.find();
-    if(!user){
-      return  res.status(404).json({message:"user not found  "})
-    }
-    res.status(200).json({ mesaage: "users founded", user: user });
-  } catch (error) {
-    return  res.status(500).json(error.mesaage);
-  }
-};
-
-export const getuserbyid = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await Users.findById(id);
-    res.status(200).json({ mesaage: "users founded with id", user: user });
-  } catch (error) {
-    return  res.status(500).json(error.mesaage);
-  }
-};
-
-export const putuser = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const upuser = await Users.findByIdAndUpdate(id, req.body, { new: true });
-    if (!upuser) {
-      return res.status(404).json({ mesaage: "users not founded" });
-    }
-    res.status(200).json({ mesaage: "users founded", upuser });
-  } catch (error) {
-    return  res.status(500).json(error.mesaage);
-  }
-};
-
-export const deleteuser = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await Users.findByIdAndDelete(id);
-    res.status(200).json({ mesaage: "users userdeleted success", user: user });
-  } catch (error) {
-    return  res.status(500).json(error.mesaage);
-  }
-};
-
-// export const verifytoken=(req,res,next)=>{
-//     const token=req.headers['authorization']
-//     if(!token){
-//       return res.status(403).json({mesaage:"token is requird"})
+// export const getuser = async (req, res) => {
+//   try {
+//     const user = await Users.find();
+//     if(!user){
+//       return  res.status(404).json({message:"user not found  "})
 //     }
-//     jwt.verify(token,secretkey,(err,decoded)=>{
-//         if(err){
-//           return    res.status(401).json({mesaage:"unotharaised token"})
-//         }
-//         req.user=decoded
+//     res.status(200).json({ mesaage: "users founded", user: user });
+//   } catch (error) {
+//     return  res.status(500).json(error.mesaage);
+//   }
+// };
 
-//         next()
+// export const getuserbyid = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const user = await Users.findById(id);
+//     res.status(200).json({ mesaage: "users founded with id", user: user });
+//   } catch (error) {
+//     return  res.status(500).json(error.mesaage);
+//   }
+// };
 
-//     })
-    
+// export const putuser = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const upuser = await Users.findByIdAndUpdate(id, req.body, { new: true });
+//     if (!upuser) {
+//       return res.status(404).json({ mesaage: "users not founded" });
+//     }
+//     res.status(200).json({ mesaage: "users founded", upuser });
+//   } catch (error) {
+//     return  res.status(500).json(error.mesaage);
+//   }
+// };
+
+// export const deleteuser = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const user = await Users.findByIdAndDelete(id);
+//     res.status(200).json({ mesaage: "users userdeleted success", user: user });
+//   } catch (error) {
+//     return  res.status(500).json(error.mesaage);
+//   }
+// };
 
 
-// }
+
+
+
+
+
+
 
 
