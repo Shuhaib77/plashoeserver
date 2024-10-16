@@ -14,12 +14,10 @@ import Products from "../model/productshema.js";
 //find all product 
 
 export const getproduct = async (req, res) => {
-  try {
+
     const products = await Products.find();
     res.status(200).json({ message: "geted all product", products: products });
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
+ 
 };
 
 
@@ -27,21 +25,19 @@ export const getproduct = async (req, res) => {
 export const getproductbyid = async (req, res) => {
   const { id } = req.params;
 
-  try {
+  
     const product = await Products.findById(id);
     if (!product) {
      return res.status(404).json({ message: "item not found" });
     }
     res.status(200).json({ message: `${id}th user getted`, product });
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
+ 
 };
 
 //find product by catrogery
 
 export const getproductbycatogery = async (req, res) => {
-  try {
+
     const catogery = req.query.catogery;
     console.log(catogery);
     const product = await Products.find({catogery});
@@ -51,9 +47,7 @@ export const getproductbycatogery = async (req, res) => {
     res
       .status(200)
       .json({ message: `${catogery}th user getted`, products: product });
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+ 
 };
 
 //put update products

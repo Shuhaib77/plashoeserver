@@ -4,6 +4,7 @@ import {  getproduct, getproductbycatogery, getproductbyid, } from "../controlle
 import { addtocart, decrcart, deletecart, incrcart, viewusercart } from "../controller/Cartcontroller.js"
 import { addtowishlist, deletetewishlist, wishlistview } from "../controller/wishlistcontroler.js"
 import { verifytoken } from "../Middlewares/usermidleware.js"
+import { trycatchmidle } from "../Middlewares/tryCatchmiddleware.js"
 
 
 
@@ -11,23 +12,23 @@ import { verifytoken } from "../Middlewares/usermidleware.js"
 const proute=express.Router()
 //products
 
- proute.get("/products",verifytoken,getproduct)
- proute.get('/products/:id',verifytoken,getproductbyid)
- proute.get('/product',verifytoken,getproductbycatogery)
+ proute.get("/products",verifytoken, trycatchmidle(getproduct) )
+ proute.get('/products/:id',verifytoken, trycatchmidle(getproductbyid) )
+ proute.get('/product',verifytoken, trycatchmidle(getproductbycatogery) )
 
  
 //cart
-proute.post("/cart/:productid/:userid",verifytoken,addtocart)
-proute.get("/cart/:userid",verifytoken,viewusercart)
-proute.post("/cart/incr/:productid/:userid",incrcart)
-proute.post("/cart/decr/:productid/:userid",decrcart)
-proute.delete("/cart/delete/:productid/:userid",deletecart)
+proute.post("/cart/:productid/:userid",verifytoken, trycatchmidle(addtocart) )
+proute.get("/cart/:userid",verifytoken, trycatchmidle(viewusercart) )
+proute.post("/cart/incr/:productid/:userid", trycatchmidle(incrcart) )
+proute.post("/cart/decr/:productid/:userid", trycatchmidle(decrcart) )
+proute.delete("/cart/delete/:productid/:userid", trycatchmidle(deletecart) )
 
 //wishlist
 
-proute.post("/wishlist/:productid/:userid",addtowishlist)
-proute.get("/wishlist/:userid",wishlistview)
-proute.delete("/wishlist/delete/:productid/:userid",deletetewishlist)
+proute.post("/wishlist/:productid/:userid", trycatchmidle(addtowishlist) )
+proute.get("/wishlist/:userid", trycatchmidle(wishlistview) )
+proute.delete("/wishlist/delete/:productid/:userid", trycatchmidle(deletetewishlist) )
 
 
 

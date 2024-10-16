@@ -9,7 +9,7 @@ config();
 
 
 export const adminlogin = async (req, res) => {
-  try {
+ 
     // const admin= await new Users(req.body.email!==process.env.Admin_email)
     if (req.body.email !== process.env.Admin_email) {
       return res.status(404).json("u are not a admin");
@@ -36,51 +36,43 @@ export const adminlogin = async (req, res) => {
 
     console.log(token);
     res.status(200).json({ message: "admin Login success full", token: token });
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
+  
 };
 
 //get user
 
 export const getuser = async (req, res) => {
-    try {
+   
       const user = await Users.find({role:'user'});
       if(!user){
         return  res.status(404).json({message:"user not found  "})
       }
       res.status(200).json({ mesaage: "users founded", user: user });
-    } catch (error) {
-      return  res.status(500).json(error.mesaage);
-    }
+    
   };
   //get user by id
   
   export const getuserbyid = async (req, res) => {
   
     const { id } = req.params;
-    try {
+  
        
       const user = await Users.findById(id);
       res.status(200).json({ mesaage: "users founded with id", user: user });
-    } catch (error) {
-      return  res.status(500).json(error.mesaage);
-    }
+    
   };
   
 
   // put user
   export const putuser = async (req, res) => {
     const { id } = req.params;
-    try {
+ 
       const upuser = await Users.findByIdAndUpdate(id, req.body, { new: true });
       if (!upuser) {
         return res.status(404).json({ mesaage: "users not founded" });
       }
       res.status(200).json({ mesaage: "users founded", upuser });
-    } catch (error) {
-      return  res.status(500).json(error.mesaage);
-    }
+    
   };
   
 
@@ -88,12 +80,10 @@ export const getuser = async (req, res) => {
 
   export const deleteuser = async (req, res) => {
     const { id } = req.params;
-    try {
+  
       const user = await Users.findByIdAndDelete(id);
       res.status(200).json({ mesaage: "users userdeleted success", user: user });
-    } catch (error) {
-      return  res.status(500).json(error.mesaage);
-    }
+   
   };
 
 
@@ -102,12 +92,10 @@ export const getuser = async (req, res) => {
 
   export const createprdt = async (req, res) => {
     const product = Products(req.body);
-    try {
+   
       await product.save();
       res.status(200).json({ message: "product created", products: product });
-    } catch (error) {
-     return res.status(500).json(error.message);
-    }
+   
   };
 
   //product delete
@@ -115,22 +103,20 @@ export const getuser = async (req, res) => {
 
   export const deleteproduct = async (req, res) => {
     const { id } = req.params;
-    try {
+   
       const deletedproduct = await Products.findByIdAndDelete(id);
       if (!deletedproduct) {
         return  res.status(404).json({ message: "item not found" });
       }
       res.status(200).json({ message: "item deleted successfull" });
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
+  
   };
 
   //put update product
 
   export const putproduct = async (req, res) => {
     const { id } = req.params;
-    try {
+ 
       const upproduct = await Products.findByIdAndUpdate(id, req.body, {
         new: true,
       });
@@ -138,9 +124,7 @@ export const getuser = async (req, res) => {
         return res.status(404).json({ message: "product not found" });
       }
       res.status(200).json({ message: "product updated", products: upproduct });
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
+   
   };
   
   

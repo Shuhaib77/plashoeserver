@@ -5,7 +5,7 @@ import Products from "../model/productshema.js";
 export const addtowishlist = async (req, res) => {
   const { productid } = req.params;
   const { userid } = req.params;
-  try {
+  
     const user = await Users.findById(userid);
     console.log(user);
 
@@ -33,9 +33,7 @@ export const addtowishlist = async (req, res) => {
     user.wishlist.push(wishlistitem._id);
     await user.save();
     res.status(200).json({ message: "item added to wishlist" });
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+
 };
 
 //wishlist view
@@ -43,7 +41,7 @@ export const addtowishlist = async (req, res) => {
 export const wishlistview = async (req, res) => {
   const { userid } = req.params;
 
-  try {
+ 
     const user = await Users.findById(userid).populate({
       path: "wishlist",
       populate: { path: "productid" },
@@ -58,15 +56,13 @@ export const wishlistview = async (req, res) => {
         .json({ message: "usr wishlist is empty", data: [] });
     }
     res.status(200).json(user.wishlist);
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+ 
 };
 
 export const deletetewishlist = async (req, res) => {
   const { userid, productid } = req.params;
 
-  try {
+
     const user = await Users.findById(userid);
     if (!user) {
       return res.status(404).json({ message: "user not found" });
@@ -84,7 +80,5 @@ export const deletetewishlist = async (req, res) => {
     user.wishlist.splice(wishlistindex, 1);
     await user.save();
     res.status(200).json({ message: "item deleted successfull" });
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
+  
 };
