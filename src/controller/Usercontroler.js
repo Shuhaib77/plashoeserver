@@ -4,20 +4,29 @@ import jwt from "jsonwebtoken";
 
 const secretkey = "hhh";
 export const register = async (req, res) => {
-  const {password}=req.body
+  const { password } = req.body;
+  const { email } = req.body;
+
+  const match = await Users.findOne({ email });
+
+  if (match) {
+    return res.status(404).json({ mesaage: "item alredy exist" });
+  }
+
   if (!password) {
     return res.status(404).json({ message: "Password is required" });
-}
+  }
 
   const hashpass = await bcrypt.hash(password, 10);
-console.log(hashpass);
+  console.log(hashpass);
 
   const user = new Users({
     email: req.body.email,
     password: hashpass,
-    image:  req.cloudinaryImageUrl,
+    image: req.cloudinaryImageUrl,
     confirmpass: hashpass,
   });
+
   try {
     await user.save();
     res.status(200).json({ message: "register successfull", user: user });
@@ -30,7 +39,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   console.log(email);
   console.log(password);
-  
+
   try {
     const user = await Users.findOne({ email });
     if (!user) {
@@ -97,13 +106,3 @@ export const login = async (req, res) => {
 //     return  res.status(500).json(error.mesaage);
 //   }
 // };
-
-
-
-
-
-
-
-
-
-
