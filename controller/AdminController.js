@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import Users from "../model/usershema.js";
 import { config } from "dotenv";
+import Products from "../model/productshema.js";
 
 config();
 
@@ -94,4 +95,52 @@ export const getuser = async (req, res) => {
       return  res.status(500).json(error.mesaage);
     }
   };
+
+
+  //product create
+
+
+  export const createprdt = async (req, res) => {
+    const product = Products(req.body);
+    try {
+      await product.save();
+      res.status(200).json({ message: "product created", products: product });
+    } catch (error) {
+     return res.status(500).json(error.message);
+    }
+  };
+
+  //product delete
+
+
+  export const deleteproduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const deletedproduct = await Products.findByIdAndDelete(id);
+      if (!deletedproduct) {
+        return  res.status(404).json({ message: "item not found" });
+      }
+      res.status(200).json({ message: "item deleted successfull" });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  };
+
+  //put update product
+
+  export const putproduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const upproduct = await Products.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      if (!upproduct) {
+        return res.status(404).json({ message: "product not found" });
+      }
+      res.status(200).json({ message: "product updated", products: upproduct });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  };
+  
   

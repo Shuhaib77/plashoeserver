@@ -1,5 +1,5 @@
 import express from "express"
-import { createprdt, deleteproduct, getproduct, getproductbycatogery, getproductbyid, putproduct } from "../controller/ProductControler.js"
+import {  getproduct, getproductbycatogery, getproductbyid, } from "../controller/ProductControler.js"
 // import { verifytoken } from "../controller/Usercontroler.js"
 import { addtocart, decrcart, deletecart, incrcart, viewusercart } from "../controller/Cartcontroller.js"
 import { addtowishlist, deletetewishlist, wishlistview } from "../controller/wishlistcontroler.js"
@@ -10,12 +10,12 @@ import { verifytoken } from "../Middlewares/usermidleware.js"
 
 const proute=express.Router()
 //products
- proute.post("/products",verifytoken,createprdt)
+
  proute.get("/products",verifytoken,getproduct)
  proute.get('/products/:id',verifytoken,getproductbyid)
  proute.get('/product',verifytoken,getproductbycatogery)
- proute.put("/products/:id",verifytoken,putproduct)
- proute.delete('/products/:id',verifytoken,deleteproduct)
+
+ 
 //cart
 proute.post("/cart/:productid/:userid",verifytoken,addtocart)
 proute.get("/cart/:userid",verifytoken,viewusercart)

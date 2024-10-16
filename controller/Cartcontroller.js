@@ -61,6 +61,7 @@ export const viewusercart = async (req, res) => {
       path: "cart",
       populate: { path: "productid" },
     });
+
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -73,15 +74,20 @@ export const viewusercart = async (req, res) => {
   }
 };
 
-export const incrcart = async (req, res) => {
+export const incrcart = async (req,res) => {
   try {
     const { userid, productid } = req.params;
 
+
+    console.log(userid);
+    console.log(productid);
+    
     const user = await Users.findById(userid);
     if (!user) {
       return  res.status(404).json({ message: "item not found" });
     }
     const product = await Products.findById(productid);
+
     if (!product) {
       return  res.status(404).json("product not found");
     }
@@ -112,13 +118,19 @@ export const incrcart = async (req, res) => {
 export const decrcart = async (req, res) => {
   try {
     const { userid, productid } = req.params;
+    console.log(userid);
+    console.log(productid);
 //find user
     const user = await Users.findById(userid);
+  
+    
+    
     if (!user) {
       return res.status(404).json({ message: "item not found" });
     }
     //find product
     const product = await Products.findById(productid);
+    console.log(product);
     if (!product) {
       return res.status(404).json({ message: "product noot found" });
     }
@@ -133,6 +145,8 @@ export const decrcart = async (req, res) => {
       if (!cartitem) {
         return res.status(404).json({ message: "caritem not found" });
       }
+      console.log(cartitem,"dede");
+      
 
       cartitem.quantity--;
       await cartitem.save();
