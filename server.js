@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 // import route from "./route/userroute.js";
-import proute from "./route/productroute.js";
-import uroute from "./route/userroute.js";
-import aroute from "./route/adminrote.js";
+import proute from "./src/route/productroute.js";
+import uroute from "./src/route/userroute.js";
+import aroute from "./src/route/adminrote.js";
 
 
 
