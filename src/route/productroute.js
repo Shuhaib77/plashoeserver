@@ -5,6 +5,7 @@ import { addtocart, decrcart, deletecart, incrcart, viewusercart } from "../cont
 import { addtowishlist, deletetewishlist, wishlistview } from "../controller/wishlistcontroler.js"
 import { verifytoken } from "../Middlewares/usermidleware.js"
 import { trycatchmidle } from "../Middlewares/tryCatchmiddleware.js"
+import { cancelPayment, createPayment, executePayment } from "../controller/PaymentController.js"
 
 
 
@@ -30,6 +31,12 @@ proute.post("/wishlist/:productid/:userid", trycatchmidle(addtowishlist) )
 proute.get("/wishlist/:userid", trycatchmidle(wishlistview) )
 proute.delete("/wishlist/delete/:productid/:userid", trycatchmidle(deletetewishlist) )
 
+
+
+
+proute.post('/pay', createPayment);
+proute.get('/success', executePayment);
+proute.get('/cancel', cancelPayment);
 
 
  export default proute
