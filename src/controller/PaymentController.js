@@ -19,8 +19,8 @@ export const createPayment = (req, res) => {
       "payment_method": "paypal"
     },
     "redirect_urls": {
-      "return_url": "http://localhost:3000/success",
-      "cancel_url": "http://localhost:3000/cancel"
+      "return_url": "http://localhost:5000/api/success",
+      "cancel_url": "http://localhost:5000/api/cancel"
     },
     "transactions": [{
       "item_list": {
