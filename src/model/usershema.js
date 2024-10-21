@@ -34,30 +34,33 @@ const userschema = mongoose.Schema([
     cart: [
       {
         type: mongoose.Schema.Types.ObjectId,
+        ref:'Cart'
       },
     ],
     wishlist: [
       {
         type: mongoose.Schema.Types.ObjectId,
+        ref:'Wishlist'
       },
     ],
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
+        ref:'Orders'
       },
     ],
     block: {
       type: Boolean,
       require: true,
     },
-    detorder: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-      },
-    ],
+    // orders: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //   },
+    // ],
   },
 ]);
 
-const Users = mongoose.model("usersplashoe", userschema);
+const Users = mongoose.model("Users", userschema);
 
 export default Users;

@@ -20,7 +20,7 @@ const wislistshema=mongoose.Schema({
 
 })
 
-const Wishlist=mongoose.model("wishlist",wislistshema)
+const Wishlist=mongoose.model("Wishlist",wislistshema)
 
 export default Wishlist
 

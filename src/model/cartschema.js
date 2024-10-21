@@ -1,24 +1,21 @@
 import mongoose from "mongoose";
-import Users from "./usershema.js";
-import Products from "./productshema.js";
 
-const cartschema = mongoose.Schema({
+const cartschema = new mongoose.Schema({
   userid: {
     type: mongoose.Schema.ObjectId,
-    ref: Users,
-    require: true,
+    ref: 'Users', // Use the model name as a string
+    required: true, // Ensure 'required' is spelled correctly
   },
   productid: {
     type: mongoose.Schema.ObjectId,
-    ref: Products,
-    require: true,
+    ref: 'Products', // Use the model name as a string
+    required: true,
   },
   quantity: {
     type: Number,
-    require: true,
+    required: true, // Ensure 'required' is spelled correctly
   },
 });
 
-const Cart = mongoose.model("cart", cartschema);
-
+const Cart = mongoose.model("Cart", cartschema); // Use "Cart" as the model name
 export default Cart;

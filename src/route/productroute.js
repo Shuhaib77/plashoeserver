@@ -34,8 +34,8 @@ proute.delete("/wishlist/delete/:productid/:userid", trycatchmidle(deletetewishl
 
 
 
-proute.post('/pay', createPayment);
-proute.get('/success', executePayment);
+proute.post('/pay/:id', trycatchmidle(createPayment));
+proute.get('/:totalAmount/success', executePayment);
 proute.get('/cancel', cancelPayment);
 
 
