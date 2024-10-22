@@ -24,12 +24,14 @@ export const addtocart = async (req, res) => {
   }
 
   //check item alredy exist in cart
+  console.log(user._id,'sample userr');
+  
+console.log(product._id,'sample printin prodect ');
 
   let cartitem = await Cart.findOne({
     userid: user._id,
     productid: product._id,
   });
-  console.log(cartitem, "ddd");
   //createcart
   if (cartitem) {
     cartitem.quantity++;
@@ -43,7 +45,6 @@ export const addtocart = async (req, res) => {
     });
     //add to cart
     user.cart.push(cartitem._id);
-    console.log(user.cart);
 
     await user.save();
     res.status(200).json({ message: "item add to cart successfull" });

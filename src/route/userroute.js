@@ -13,6 +13,8 @@ const uroute=express.Router()
 
 uroute.post("/register",uplodimage, trycatchmidle(register) )
 uroute.post("/login", trycatchmidle(login) )
+
+
 // uroute.get("/users",verifytoken,getuser)
 // uroute.get('/users/:id',verifytoken,getuserbyid)
 

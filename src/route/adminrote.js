@@ -1,5 +1,5 @@
 import express from 'express'
-import { adminlogin, createprdt, deleteproduct, getuser, getuserbyid, putproduct } from '../controller/AdminController.js'
+import { adminlogin, adminorders, createprdt, deleteproduct, getuser, getuserbyid, putproduct, revanue } from '../controller/AdminController.js'
 import { verifyadmintoken } from '../Middlewares/Adminmidleware.js'
 import { trycatchmidle } from '../Middlewares/tryCatchmiddleware.js'
 // import { verifytoken } from '../Middlewares/usermidleware.js'
@@ -8,13 +8,15 @@ import { trycatchmidle } from '../Middlewares/tryCatchmiddleware.js'
 const aroute=express.Router()
 
 
-aroute.post("/admin", trycatchmidle(adminlogin))
-aroute.get("/admin/users",verifyadmintoken, trycatchmidle(getuser) )
-aroute.get('/admin/users/:id',verifyadmintoken, trycatchmidle(getuserbyid) )
+aroute.post("/", trycatchmidle(adminlogin))
+aroute.get("/users",verifyadmintoken, trycatchmidle(getuser) )
+aroute.get('/users/:id',verifyadmintoken, trycatchmidle(getuserbyid) )
 
 //product
 
-aroute.delete('/admin/products/delete/:id',verifyadmintoken, trycatchmidle(deleteproduct) )
-aroute.post("/admin/products",verifyadmintoken, trycatchmidle(createprdt) )
-aroute.put("/admin/products/:id",verifyadmintoken, trycatchmidle(putproduct) )
+aroute.delete('/products/delete/:id',verifyadmintoken, trycatchmidle(deleteproduct) )
+aroute.post("/products",verifyadmintoken, trycatchmidle(createprdt) )
+aroute.put("/products/:id",verifyadmintoken, trycatchmidle(putproduct) )
+aroute.get("/orders",verifyadmintoken, trycatchmidle(adminorders) )
+aroute.get("/revanue",verifyadmintoken, trycatchmidle(revanue) )
 export default aroute

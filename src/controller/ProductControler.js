@@ -50,6 +50,12 @@ export const getproductbycatogery = async (req, res) => {
  
 };
 
+// import Users from "../model/usershema";
+
+
+
+
+
 //put update products
 
 // export const putproduct = async (req, res) => {

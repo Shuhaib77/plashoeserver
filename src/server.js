@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/')
 
 app.use("/api",uroute)
 app.use("/api",proute)
-app.use("/api",aroute)
+app.use("/api/admin",aroute)
 
 
 app.listen(port,()=>{

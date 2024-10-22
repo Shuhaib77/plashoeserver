@@ -1,5 +1,6 @@
 import Users from "../model/usershema.js";
 import bcrypt from "bcryptjs";
+import { populate } from "dotenv";
 import jwt from "jsonwebtoken";
 
 const secretkey = "hhh";
@@ -58,6 +59,24 @@ export const login = async (req, res) => {
     res.status(200).json({ mesaage: "login successfull", token });
 
 };
+
+
+// export const orderdetails=async(req,res)=>{
+
+//   const {id}=req.params
+
+//   const user=await Users.findById(id).populate({
+//     path:"orders",
+//     populate:"orderid"
+//   })
+
+
+// console.log(user);
+
+    
+// }
+
+
 
 // export const getuser = async (req, res) => {
 //   try {

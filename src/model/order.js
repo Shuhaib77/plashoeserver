@@ -4,7 +4,7 @@ const ordersSchema = new mongoose.Schema({
 
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Users",
         required: true,
     },
     productId: [{
@@ -22,7 +22,7 @@ const ordersSchema = new mongoose.Schema({
         required: true,
         default: new Date().toTimeString()
     },
-    orderId: {
+    payerId: {
         type: String,
         required: true,
     },

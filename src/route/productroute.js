@@ -5,7 +5,10 @@ import { addtocart, decrcart, deletecart, incrcart, viewusercart } from "../cont
 import { addtowishlist, deletetewishlist, wishlistview } from "../controller/wishlistcontroler.js"
 import { verifytoken } from "../Middlewares/usermidleware.js"
 import { trycatchmidle } from "../Middlewares/tryCatchmiddleware.js"
-import { cancelPayment, createPayment, executePayment } from "../controller/PaymentController.js"
+import { cancelPayment, createPayment, executePayment, } from "../controller/PaymentController.js"
+import { orderdetails } from "../controller/Ordercontroller.js"
+
+
 
 
 
@@ -35,8 +38,10 @@ proute.delete("/wishlist/delete/:productid/:userid", trycatchmidle(deletetewishl
 
 
 proute.post('/pay/:id', trycatchmidle(createPayment));
-proute.get('/:totalAmount/success', executePayment);
-proute.get('/cancel', cancelPayment);
+proute.get('/:id/:totalAmount/success', trycatchmidle(executePayment) );
+proute.get('/cancel', trycatchmidle(cancelPayment) );
+
+proute.get("/orders/:id", trycatchmidle(orderdetails) )
 
 
  export default proute
