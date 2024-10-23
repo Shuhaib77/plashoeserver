@@ -26,6 +26,10 @@ const productschema = mongoose.Schema(
       type: Number,
       require: true,
     },
+    description: {
+      type: String,
+      require: true,
+    },
   },
 );
 

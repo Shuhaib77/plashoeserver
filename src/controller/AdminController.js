@@ -20,7 +20,7 @@ export const adminlogin = async (req, res) => {
   if (!admin) {
     res.status(404).json({ message: "user not found" });
   }
-  await admin.save();
+  // await admin.save();
 
   const payload = {
     email: req.body.email,
@@ -76,10 +76,44 @@ export const deleteuser = async (req, res) => {
 //product create
 
 export const createprdt = async (req, res) => {
-  const product = Products(req.body);
+  try {
+    // Extract product data from the request body
+    const { image, brand, title, catogery, price, quantity, description } = req.body;
+    console.log(req.body);
+    
 
-  await product.save();
-  res.status(200).json({ message: "product created", products: product });
+    // Validate required fields
+    if (!image || !brand || !title || !catogery || !price || !quantity || !description) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Create a new product instance with the provided data
+    const newProduct = new Products({
+      image,
+      brand,
+      title,
+      catogery,
+      price,
+      quantity,
+      description,
+    });
+
+    // Save the product to the database
+    await newProduct.save();
+
+    // Send success response
+    res.status(201).json({
+      message: "Product created successfully",
+      product: newProduct,
+    });
+  } catch (error) {
+    // Handle any error that occurs during the process
+    console.error("Error creating product:", error);
+    res.status(500).json({
+      message: "An error occurred while creating the product",
+      error: error.message || error,
+    });
+  }
 };
 
 //product delete
@@ -139,3 +173,27 @@ export const revanue = async (req, res) => {
     .status(200)
     .json({ message: "all order detail", totalproducts: 0, totalRevanue: 0 });
 };
+
+
+export const blockuser=async(req,res)=>{
+  const {id}=req.params
+
+  const user= await Users.findById(id)
+  if(   user.block===false){
+    user.block=true
+    await user.save()
+   return res.status(200).json({message:"usser is blocked",data:user})
+
+  }
+  user.block=false
+  await user.save()
+  res.status(200).json({message:"usser is unblocked",data:user})
+
+  
+
+
+    
+
+
+
+}

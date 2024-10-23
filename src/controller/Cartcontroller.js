@@ -33,10 +33,14 @@ console.log(product._id,'sample printin prodect ');
     productid: product._id,
   });
   //createcart
+
+
+  console.log(product._id,'im suhaib ');
+  
   if (cartitem) {
     cartitem.quantity++;
     await cartitem.save();
-    res.status(200).json({ message: "cartitem quantity increasess" });
+   return res.status(200).json({ message: "cartitem quantity increasess" });
   } else {
     cartitem = await Cart.create({
       userid: user._id,
@@ -45,9 +49,10 @@ console.log(product._id,'sample printin prodect ');
     });
     //add to cart
     user.cart.push(cartitem._id);
+console.log(user,'sample user');
 
     await user.save();
-    res.status(200).json({ message: "item add to cart successfull" });
+    return res.status(200).json({ message: "item add to cart successfull" });
   }
 };
 

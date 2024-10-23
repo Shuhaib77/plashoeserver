@@ -51,6 +51,7 @@ const userschema = mongoose.Schema([
     ],
     block: {
       type: Boolean,
+      default:false,
       require: true,
     },
     // orders: [

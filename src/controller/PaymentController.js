@@ -24,7 +24,7 @@ export const createPayment = async (req, res) => {
     path: "cart",
     populate: { path: "productid" },
   });
-  console.log(user,'dsdddddsample userrrrrrrr');
+  console.log("ff",user,'dsdddddsample userrrrrrrr');
   
 
   if (!user) {
@@ -132,10 +132,22 @@ export const executePayment = async (req, res) => {
         // const products = payment.transactions[0].item_list.items;
         // res.send(products)
 
+        const user = await Users.findById(id).populate({
+          path: "cart",
+          populate: { path: "productid" },
+        });
+        const arr = []
+        user.cart.map((e)=>{
 
+          arr.push(e.productid._id)
+        })
+        console.log(arr);
+        
 
-        const user = await Users.findById(id)
-        const productIds = user.cart
+        // const user = await Users.findById(id)
+        // const productIds = user.cart;
+        // console.log(productIds,'suhaib');
+        
       //  const y= user.cart.map((item)=>({
       //     productid:item.productid._id
       //   }))
@@ -179,11 +191,13 @@ export const executePayment = async (req, res) => {
         
   // console.log(user,'hhh');
 
+  
+
         
 
         const order = await Orders.create({
           userId: id,
-          productId: productIds,
+          productId: arr,
           payerId: payerId,
           paymentId: paymentId,
           totalPrice: totalAmount,
@@ -208,6 +222,9 @@ export const executePayment = async (req, res) => {
             .status(500)
             .json({ message: "Failed to update user data" });
         }
+
+
+
 
         // // Remove all items from user's cart after successful payment
         // await Cart.deleteMany({ _id: { $in: cartItems.map(item => item._id) } });
