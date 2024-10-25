@@ -50,7 +50,7 @@ export const getuserbyid = async (req, res) => {
   const { id } = req.params;
 
   const user = await Users.findById(id);
-  res.status(200).json({ mesaage: "users founded with id", user: user });
+ return res.status(200).json({ mesaage: "users founded with id", user: user });
 };
 
 // put user
@@ -70,13 +70,13 @@ export const deleteuser = async (req, res) => {
   const { id } = req.params;
 
   const user = await Users.findByIdAndDelete(id);
-  res.status(200).json({ mesaage: "users userdeleted success", user: user });
+  return res.status(200).json({ mesaage: "users userdeleted success", user: user });
 };
 
 //product create
 
 export const createprdt = async (req, res) => {
-  try {
+ 
     // Extract product data from the request body
     const { image, brand, title, catogery, price, quantity, description } = req.body;
     console.log(req.body);
@@ -102,18 +102,14 @@ export const createprdt = async (req, res) => {
     await newProduct.save();
 
     // Send success response
-    res.status(201).json({
+    return res.status(201).json({
       message: "Product created successfully",
       product: newProduct,
     });
-  } catch (error) {
+  
     // Handle any error that occurs during the process
-    console.error("Error creating product:", error);
-    res.status(500).json({
-      message: "An error occurred while creating the product",
-      error: error.message || error,
-    });
-  }
+    
+  
 };
 
 //product delete
@@ -148,9 +144,9 @@ export const adminorders = async (req, res) => {
   const orderss = await Orders.find();
 
   if (orderss.length === 0) {
-    res.status(404).json({ mesaage: "empty orderss" });
+  return  res.status(404).json({ mesaage: "empty orderss" });
   }
-  res.status(200).json({ mesaage: "order finded", allorders: orderss });
+   res.status(200).json({ mesaage: "order finded", allorders: orderss });
 };
 
 //total renanue
@@ -166,10 +162,10 @@ export const revanue = async (req, res) => {
     },
   ]);
   if (revanues.length > 0) {
-    res.status(200).json({ message: "all order detail", data: revanues[0] });
+    return res.status(200).json({ message: "all order detail", data: revanues[0] });
   }
 
-  res
+ return res
     .status(200)
     .json({ message: "all order detail", totalproducts: 0, totalRevanue: 0 });
 };
@@ -179,7 +175,7 @@ export const blockuser=async(req,res)=>{
   const {id}=req.params
 
   const user= await Users.findById(id)
-  if(   user.block===false){
+  if(user.block===false){
     user.block=true
     await user.save()
    return res.status(200).json({message:"usser is blocked",data:user})

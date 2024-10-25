@@ -3,6 +3,8 @@ import {  login,register } from "../controller/Usercontroler.js";
 // import { verifytoken } from "../Middlewares/usermidleware.js";
 import uplodimage from "../Middlewares/uplod.js";
 import { trycatchmidle } from "../Middlewares/tryCatchmiddleware.js";
+import Validate from "../Middlewares/validationmiddleware.js";
+import authvalidation from "../joivalidation/authvalidation.js";
 
 
 
@@ -11,7 +13,7 @@ const uroute=express.Router()
 
 
 
-uroute.post("/register",uplodimage, trycatchmidle(register) )
+uroute.post("/register",Validate(authvalidation),uplodimage, trycatchmidle(register) )
 uroute.post("/login", trycatchmidle(login) )
 
 

@@ -13,7 +13,8 @@ export const verifyadmintoken = async (req, res, next) => {
     }
     req.user = decoded;
     // return decoded;
+    next();
   });
 
-  next();
+ 
 };

@@ -25,7 +25,7 @@ export const register = async (req, res) => {
     email: req.body.email,
     password: hashpass,
     image: req.cloudinaryImageUrl,
-    confirmpass: hashpass,
+    // confirmpass: hashpass,
   });
 
   
@@ -59,8 +59,15 @@ export const login = async (req, res) => {
       name: req.name,
       email: req.email,
     };
+
+  
     const token = jwt.sign(payload, secretkey, { expiresIn: "1h" });
 
+  //   res.cookie('token', token, {
+  //     httpOnly: true,
+  //     secure: process.env.NODE_ENV === 'production', 
+  //     maxAge: 3600000, 
+  // });
     res.status(200).json({ mesaage: "login successfull", token });
 
 };

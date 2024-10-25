@@ -10,10 +10,10 @@ const userschema = mongoose.Schema([
       type: String,
       require: true,
     },
-    confirmpass: {
-      type: String,
-      require: true,
-    },
+    // confirmpass: {
+    //   type: String,
+    //   require: true,
+    // },
     image:{
       type:String,
       require:true

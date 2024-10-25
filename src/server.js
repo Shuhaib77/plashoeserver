@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import proute from "./route/productroute.js";
 import uroute from "./route/userroute.js";
 import aroute from "./route/adminrote.js";
-
+// import cookieParser from 'cookie-parser'
 
 
 
@@ -12,6 +12,7 @@ const app=express()
 const port=5000
 
 app.use(express.json())
+// app.use(cookieParser());
 mongoose.connect('mongodb://localhost:27017/')
 .then(()=>console.log('conected'))
 .catch((err)=>console.log(err)

@@ -55,7 +55,7 @@ export const wishlistview = async (req, res) => {
         .status(404)
         .json({ message: "usr wishlist is empty", data: [] });
     }
-    res.status(200).json(user.wishlist);
+    res.status(200).json({message:"wishlist finded",wishlist:user.wishlist});
  
 };
 

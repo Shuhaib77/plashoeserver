@@ -4,6 +4,10 @@ import Users from "../model/usershema.js";
 
 export const addtocart = async (req, res) => {
   //find user
+  // const loginTime = req.headers['Authorization'];
+  // if (!loginTime) {
+  //   return res.status(400).send('Login-Time header not found');
+  // }
   const userid = req.params.userid;
   const productid = req.params.productid;
   console.log(userid);
