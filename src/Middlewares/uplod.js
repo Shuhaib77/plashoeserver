@@ -27,12 +27,19 @@ const uplod=multer({
 const uplodimage=(req,res,next)=>{
 
     uplod.single("image")(req,res,async(error)=>{
+
+        console.log(req.file);
+        
         if(error){
             return next(error)
         }
+        
+        
         if(req.file){
+            console.log("dfasdf");
+            console.log("img", typeof req.file);
             try {
-                const result= await cloudinary.v2.uploader.upload(req.file.path)
+                const result= await cloudinary.v2.uploader.upload(image.path)
                 req.cloudinaryImageUrl=result.secure_url
 
                 console.log(req.cloudinaryImageUrl,"kjwgcwjkc");

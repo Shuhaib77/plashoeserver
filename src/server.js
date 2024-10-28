@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from 'cors';
 // import route from "./route/userroute.js";
 import proute from "./route/productroute.js";
 import uroute from "./route/userroute.js";
@@ -11,8 +12,11 @@ import aroute from "./route/adminrote.js";
 const app=express()
 const port=5000
 
+app.use(cors())
+
 app.use(express.json())
 // app.use(cookieParser());
+
 mongoose.connect('mongodb://localhost:27017/')
 .then(()=>console.log('conected'))
 .catch((err)=>console.log(err)

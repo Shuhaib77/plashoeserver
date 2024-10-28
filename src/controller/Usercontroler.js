@@ -28,10 +28,8 @@ export const register = async (req, res) => {
     // confirmpass: hashpass,
   });
 
-  
-    await user.save();
-    res.status(200).json({ message: "register successfull", user: user });
-  
+  await user.save();
+  res.status(200).json({ message: "register successfull", user: user });
 };
 
 export const login = async (req, res) => {
@@ -40,38 +38,54 @@ export const login = async (req, res) => {
   console.log(password);
   console.log(email);
 
-  
+  if (
+    email === process.env.Admin_email &&
+    password === process.env.Admin_pass
+  ) {
+    const payload = {
+      email: req.body.email,
+      password: req.body.password,
+    };
+    console.log(Users);
+    const token = jwt.sign(payload, process.env.Ajwt_secret, {
+      expiresIn: "1h",
+    });
+
+    console.log(token);
+    res.status(203).json({ message: "admin Login success full", token: token });
+    console.log(token);
+
+    // res.status(200).json({message:"admin login successfull"})
+  } else {
     const user = await Users.findOne({ email });
-   
     if (!user) {
       return res.status(404).json({ mesaage: "user not found" });
     }
-    if(user.block===true){
-      return res.status(404).json({message:"user is blocked"})
- 
-     }
+    if (user.block === true) {
+      return res.status(404).json({ message: "user is blocked" });
+    }
     const passmatch = await bcrypt.compare(password, user.password);
     if (!passmatch) {
       return res.status(404).json({ message: "password not match" });
     }
+
     const payload = {
       id: req._id,
       name: req.name,
       email: req.email,
     };
 
-  
     const token = jwt.sign(payload, secretkey, { expiresIn: "1h" });
 
-  //   res.cookie('token', token, {
-  //     httpOnly: true,
-  //     secure: process.env.NODE_ENV === 'production', 
-  //     maxAge: 3600000, 
-  // });
+    //   res.cookie('token', token, {
+    //     httpOnly: true,
+    //     secure: process.env.NODE_ENV === 'production',
+    //     maxAge: 3600000,
+    // });
+
     res.status(200).json({ mesaage: "login successfull", token });
-
+  }
 };
-
 
 // export const orderdetails=async(req,res)=>{
 
@@ -82,13 +96,9 @@ export const login = async (req, res) => {
 //     populate:"orderid"
 //   })
 
-
 // console.log(user);
 
-    
 // }
-
-
 
 // export const getuser = async (req, res) => {
 //   try {

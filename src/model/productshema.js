@@ -13,6 +13,7 @@ const productschema = mongoose.Schema(
     title: {
       type: String,
       require: true,
+      unique:true
     },
     catogery: {
       type: String,
