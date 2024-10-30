@@ -17,11 +17,11 @@ const userschema = mongoose.Schema([
     //   type: String,
     //   require: true,
     // },
-    image:{
-      type:String,
-      require:true
+    // image:{
+    //   type:String,
+    //   require:true
 
-    },
+    // },
     role:{
       type:String,
       enum:["user",'admin'],

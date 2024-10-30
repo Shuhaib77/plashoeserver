@@ -102,7 +102,7 @@ export const createprdt = async (req, res) => {
   }
 
   const newProduct = new Products({
-    image: String(req.cloudinaryImageUrl),
+    image: req.cloudinaryImageUrl,
     brand: req.body.brand,
     title: req.body.title,
     catogery: req.body.catogery,
@@ -110,6 +110,9 @@ export const createprdt = async (req, res) => {
     quantity: req.body.quantity,
     description: req.body.description,
   });
+
+  console.log(newProduct.image,"rrfvref");
+  
 
   // Save the product to the database
   await newProduct.save();

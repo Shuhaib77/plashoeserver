@@ -169,16 +169,16 @@ export const executePayment = async (req, res) => {
         // console.log(productIds,'sss');
         
       
-      //  const cartItem=user.cart
-      //   cartItem.forEach((item) => {
-      //     // item.productid.map((item)=>{
-      //       console.log(item._id);
+       const cartItem=user.cart
+        // cartItem.forEach((item) => {
+        //   // item.productid.map((item)=>{
+        //     console.log(item._id);
             
             
 
-      //     // })
-      //     // console.log(productid.toString(),"jhfwefhdw"); // Convert ObjectId to string if needed
-      //   });
+        //   // })
+        //   // console.log(productid.toString(),"jhfwefhdw"); // Convert ObjectId to string if needed
+        // });
 
         
     
@@ -226,8 +226,8 @@ export const executePayment = async (req, res) => {
 
 
 
-        // // Remove all items from user's cart after successful payment
-        // await Cart.deleteMany({ _id: { $in: cartItems.map(item => item._id) } });
+        // Remove all items from user's cart after successful payment
+        await Cart.deleteMany({ _id: { $in: cartItem.map(item => item._id) } });
 
         res.status(200).json({ message: "Payment successful" });
       }

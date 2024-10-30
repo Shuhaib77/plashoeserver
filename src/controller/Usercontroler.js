@@ -83,9 +83,23 @@ export const login = async (req, res) => {
     //     maxAge: 3600000,
     // });
 
-    res.status(200).json({ mesaage: "login successfull", token });
+    res.status(200).json({ mesaage: "login successfull", token ,user});
   }
 };
+
+
+export const profaile=async(req,res)=>{
+  const{id}=req.params
+  
+  const user= await Users.findById(id)
+  // if(!user){
+  //  return res.status(404).json({mesaage:"user not found"})
+  // }
+  // res.status(200).json({message:"user finded",user:user})
+res.send(user)
+
+
+}
 
 // export const orderdetails=async(req,res)=>{
 

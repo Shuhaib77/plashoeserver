@@ -1,5 +1,5 @@
 import express from "express";
-import {  login,register } from "../controller/Usercontroler.js";
+import {  login,profaile,register } from "../controller/Usercontroler.js";
 // import { verifytoken } from "../Middlewares/usermidleware.js";
 import uplodimage from "../Middlewares/uplod.js";
 import { trycatchmidle } from "../Middlewares/tryCatchmiddleware.js";
@@ -15,6 +15,8 @@ const uroute=express.Router()
 
 uroute.post("/register",Validate(authvalidation),uplodimage, trycatchmidle(register) )
 uroute.post("/login", trycatchmidle(login) )
+
+uroute.get('/user/:id',profaile)
 
 
 // uroute.get("/users",verifytoken,getuser)

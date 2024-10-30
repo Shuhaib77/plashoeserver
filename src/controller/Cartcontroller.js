@@ -65,7 +65,7 @@ export const viewusercart = async (req, res) => {
 
   const user = await Users.findById(userid).populate({
     path: "cart",
-    populate: { path: "productid" },
+    populate:  "productid" ,
   });
 
   if (!user) {
@@ -74,7 +74,7 @@ export const viewusercart = async (req, res) => {
   if (!user.cart || user.cart.length == 0) {
     return res.status(404).json({ message: "user cart is empty", data: [] });
   }
-  res.status(200).json({ message: "cart viewdddd", data: user.cart });
+  return res.status(200).json({ message: "cart viewdddd", data: user.cart });
 };
 
 export const incrcart = async (req, res) => {
@@ -171,7 +171,7 @@ export const deletecart = async (req, res) => {
   if (cartindex !== -1) {
     user.cart.splice(cartindex, 1);
     await user.save();
-    res.status(200).json({ message: "item deleted success" });
+    return res.status(200).json({ message: "item deleted success" });
   }
   return res.status(404).json({ message: "item not deleted error occurs" });
 };

@@ -1,6 +1,6 @@
 import cloudinary  from "cloudinary"
 import multer from "multer"
-
+// import path from 'path';
 
 //configcloudinary
 
@@ -28,7 +28,7 @@ const uplodimage=(req,res,next)=>{
 
     uplod.single("image")(req,res,async(error)=>{
 
-        console.log(req.file);
+        // console.log(req.file.originalname,'sampleee');
         
         if(error){
             return next(error)
@@ -36,17 +36,18 @@ const uplodimage=(req,res,next)=>{
         
         
         if(req.file){
-            console.log("dfasdf");
-            console.log("img", typeof req.file);
             try {
-                const result= await cloudinary.v2.uploader.upload(image.path)
+                const result= await cloudinary.v2.uploader.upload(req.file.path)
+                console.log(result,'sss');
                 req.cloudinaryImageUrl=result.secure_url
-
+           console.log(result,'ddd');
+   
                 console.log(req.cloudinaryImageUrl,"kjwgcwjkc");
                 
                 
             } catch (error) {
                return next(error)
+               
                 
             }
         }

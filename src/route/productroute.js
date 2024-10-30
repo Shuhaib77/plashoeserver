@@ -16,7 +16,7 @@ import { orderdetails } from "../controller/Ordercontroller.js"
 const proute=express.Router()
 //products
 
- proute.get("/products",verifytoken, trycatchmidle(getproduct) )
+ proute.get("/products", trycatchmidle(getproduct) )
  proute.get('/products/:id',verifytoken, trycatchmidle(getproductbyid) )
  proute.get('/product',verifytoken, trycatchmidle(getproductbycatogery) )
 
@@ -40,7 +40,6 @@ proute.delete("/wishlist/delete/:productid/:userid", trycatchmidle(deletetewishl
 proute.post('/pay/:id', trycatchmidle(createPayment));
 proute.get('/:id/:totalAmount/success', trycatchmidle(executePayment) );
 proute.get('/cancel', trycatchmidle(cancelPayment) );
-
 proute.get("/orders/:id", trycatchmidle(orderdetails) )
 
 
