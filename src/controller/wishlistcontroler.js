@@ -32,7 +32,7 @@ export const addtowishlist = async (req, res) => {
     });
     user.wishlist.push(wishlistitem._id);
     await user.save();
-    res.status(200).json({ message: "item added to wishlist" });
+  return  res.status(200).json({ message: "item added to wishlist",wishlist:user.wishlist});
 
 };
 
@@ -50,12 +50,12 @@ export const wishlistview = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "usr not found" });
     }
-    if (!user.wishlist || user.wishlist.length == 0) {
-      return res
-        .status(404)
-        .json({ message: "usr wishlist is empty", data: [] });
-    }
-    res.status(200).json({message:"wishlist finded",wishlist:user.wishlist});
+    // if (!user.wishlist || user.wishlist.length == 0) {
+    //   return res
+    //     .status(404)
+    //     .json({ message: "usr wishlist is empty", data: [] });
+    // }
+   return res.status(200).json({message:"wishlist finded",wishlist:user.wishlist});
  
 };
 
