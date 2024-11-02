@@ -17,7 +17,7 @@ const proute=express.Router()
 //products
 
  proute.get("/products", trycatchmidle(getproduct) )
- proute.get('/products/:id',verifytoken, trycatchmidle(getproductbyid) )
+ proute.get('/products/:id', trycatchmidle(getproductbyid) )
  proute.get('/product',verifytoken, trycatchmidle(getproductbycatogery) )
 
  

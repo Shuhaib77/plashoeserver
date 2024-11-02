@@ -52,8 +52,8 @@ export const login = async (req, res) => {
     });
 
     console.log(token);
-    res.status(203).json({ message: "admin Login success full", token: token });
-    console.log(token);
+   return res.status(203).json({ message: "admin Login success full", token: token });
+    // console.log(token);
 
     // res.status(200).json({message:"admin login successfull"})
   } else {
@@ -83,7 +83,7 @@ export const login = async (req, res) => {
     //     maxAge: 3600000,
     // });
 
-    res.status(200).json({ mesaage: "login successfull", token ,user});
+   res.status(200).json({ mesaage: "login successfull", token ,user});
   }
 };
 
@@ -92,11 +92,11 @@ export const profaile=async(req,res)=>{
   const{id}=req.params
   
   const user= await Users.findById(id)
-  // if(!user){
-  //  return res.status(404).json({mesaage:"user not found"})
-  // }
+  if(!user){
+   return res.status(404).json({mesaage:"user not found"})
+  }
   // res.status(200).json({message:"user finded",user:user})
-res.send(user)
+  return res.send(user)
 
 
 }

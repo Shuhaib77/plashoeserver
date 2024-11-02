@@ -19,7 +19,7 @@ aroute.get('/users/:id',verifyadmintoken, trycatchmidle(getuserbyid) )
 
 aroute.delete('/products/delete/:id',verifyadmintoken, deleteproduct) 
 aroute.post("/products",verifyadmintoken,uplodimage,trycatchmidle(createprdt) )
-aroute.put("/products/:id",verifyadmintoken, trycatchmidle(putproduct) )
+aroute.put("/products/:id",verifyadmintoken, uplodimage,trycatchmidle(putproduct) )
 aroute.get("/orders",verifyadmintoken, trycatchmidle(adminorders) )
 aroute.get("/revanue",verifyadmintoken, trycatchmidle(revanue) )
 aroute.post("/block/:id",blockuser)

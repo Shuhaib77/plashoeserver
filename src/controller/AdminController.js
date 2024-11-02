@@ -143,7 +143,9 @@ export const deleteproduct = async (req, res) => {
 export const putproduct = async (req, res) => {
   const { id } = req.params;
 
-  const upproduct = await Products.findByIdAndUpdate(id, req.body, {
+  console.log(req.body,"im shuuhuhu");
+  
+  const upproduct = await Products.findByIdAndUpdate(id, req.body,{
     new: true,
   });
   if (!upproduct) {
@@ -155,8 +157,8 @@ export const putproduct = async (req, res) => {
 //fetch orderdetails
 
 export const adminorders = async (req, res) => {
-  const orderss = await Orders.find();
-
+  const orderss = await Orders.find()
+console.log(orderss,'im shusahasliu')
   if (orderss.length === 0) {
     return res.status(404).json({ mesaage: "empty orderss" });
   }
