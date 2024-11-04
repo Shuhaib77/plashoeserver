@@ -142,15 +142,20 @@ export const deleteproduct = async (req, res) => {
 
 export const putproduct = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
+  
 
   console.log(req.body,"im shuuhuhu");
   
   const upproduct = await Products.findByIdAndUpdate(id, req.body,{
     new: true,
   });
+ 
+  
   if (!upproduct) {
     return res.status(404).json({ message: "product not found" });
   }
+  // upproduct.save()
   res.status(200).json({ message: "product updated", products: upproduct });
 };
 

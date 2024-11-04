@@ -5,6 +5,7 @@ import cors from 'cors';
 import proute from "./route/productroute.js";
 import uroute from "./route/userroute.js";
 import aroute from "./route/adminrote.js";
+import { errorHndler } from "./Middlewares/Globelmiddleware.js";
 // import cookieParser from 'cookie-parser'
 
 
@@ -25,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/')
 app.use("/api",uroute)
 app.use("/api",proute)
 app.use("/api/admin",aroute)
+app.use(errorHndler)
 
 
 app.listen(port,()=>{

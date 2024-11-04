@@ -229,7 +229,9 @@ export const executePayment = async (req, res) => {
         // Remove all items from user's cart after successful payment
         await Cart.deleteMany({ _id: { $in: cartItem.map(item => item._id) } });
 
-        res.status(200).json({ message: "Payment successful" });
+        return res.redirect('http://localhost:5173/paymentstatus');
+
+
       }
     }
   );
