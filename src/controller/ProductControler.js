@@ -10,51 +10,39 @@ import Products from "../model/productshema.js";
 //   }
 // };
 
-
-//find all product 
+//find all product
 
 export const getproduct = async (req, res) => {
-
-    const products = await Products.find();
-    res.status(200).json({ message: "geted all product", products: products });
- 
+  const products = await Products.find();
+  res.status(200).json({ message: "geted all product", products: products });
 };
-
 
 //find product by id
 export const getproductbyid = async (req, res) => {
   const { id } = req.params;
 
-  
-    const product = await Products.findById(id);
-    if (!product) {
-     return res.status(404).json({ message: "item not found" });
-    }
-    res.status(200).json({ message: `${id}th user getted`, product });
- 
+  const product = await Products.findById(id);
+  if (!product) {
+    return res.status(404).json({ message: "item not found" });
+  }
+  res.status(200).json({ message: `${id}th user getted`, product });
 };
 
 //find product by catrogery
 
 export const getproductbycatogery = async (req, res) => {
-
-    const catogery = req.query.catogery;
-    console.log(catogery);
-    const product = await Products.find({catogery});
-    if (!product) {
-      return res.status(404).json({ message: "item not found" });
-    }
-    res
-      .status(200)
-      .json({ message: `${catogery}th user getted`, products: product });
- 
+  const catogery = req.query.catogery;
+  console.log(catogery);
+  const product = await Products.find({ catogery });
+  if (!product) {
+    return res.status(404).json({ message: "item not found" });
+  }
+  res
+    .status(200)
+    .json({ message: `${catogery}th user getted`, products: product });
 };
 
 // import Users from "../model/usershema";
-
-
-
-
 
 //put update products
 
