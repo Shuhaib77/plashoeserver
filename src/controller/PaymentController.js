@@ -51,7 +51,7 @@ export const createPayment = async (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: `http://localhost:5000/api/${id}/${totalAmount}/success`,
+      return_url: `https://plashoe-e.vercel.app/api/${id}/${totalAmount}/success`,
       cancel_url: "http://localhost:5000/api/cancel",
     },
     transactions: [
