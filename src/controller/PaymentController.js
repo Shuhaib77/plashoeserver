@@ -52,7 +52,7 @@ export const createPayment = async (req, res) => {
     },
     redirect_urls: {
       return_url: `https://plashoe-e.vercel.app/api/${id}/${totalAmount}/success`,
-      cancel_url: "http://localhost:5000/api/cancel",
+      cancel_url: "https://plashoe-e.vercel.app/api/cancel",
     },
     transactions: [
       {
