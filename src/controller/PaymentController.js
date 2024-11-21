@@ -51,8 +51,8 @@ export const createPayment = async (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: `http://localhost:5000/api/${id}/${totalAmount}/success`,
-      cancel_url: "http://localhost:5000/api/cancel",
+      return_url: `ttps://plashoeserver.onrender.com/api/${id}/${totalAmount}/success`,
+      cancel_url: "ttps://plashoeserver.onrender.com/api/cancel",
     },
     transactions: [
       {
