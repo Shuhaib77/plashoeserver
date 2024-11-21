@@ -51,8 +51,8 @@ export const createPayment = async (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: `ttps://plashoeserver.onrender.com/api/${id}/${totalAmount}/success`,
-      cancel_url: "ttps://plashoeserver.onrender.com/api/cancel",
+      return_url: `https://plashoeserver.onrender.com/api/${id}/${totalAmount}/success`,
+      cancel_url: "https://plashoeserver.onrender.com/api/cancel",
     },
     transactions: [
       {
@@ -229,7 +229,7 @@ export const executePayment = async (req, res) => {
         // Remove all items from user's cart after successful payment
         await Cart.deleteMany({ _id: { $in: cartItem.map(item => item._id) } });
 
-        return res.redirect('http://localhost:5173/paymentstatus');
+        return res.redirect('https://plashoe-e.vercel.app/paymentstatus');
 
 
       }
